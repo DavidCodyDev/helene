@@ -8,14 +8,14 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #FBF5EE; --bg-soft: #F4E1E6; --bg-deep: #ECCBD4; --paper: #FFFFFF;
     --rose: #C2667D; --rose-dark: #9F4F65; --sage: #8C9888;
     --ink: #1F1B17; --text: #1F1B17; --text-muted: #5C544D; --text-faint: #9F9892;
     --line: #E5D7CC; --line-soft: #EFE4DA; --ok: #2F6B5C; --err: #B8493B;
-    --serif: 'Italiana', serif; --italic: 'Cormorant Garamond', serif;
+    --serif: 'Italiana', serif;
     --sans: 'Inter', system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,7 +39,7 @@
   .wrap { max-width: 780px; margin: 0 auto; padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 40px); }
   .quiz-eyebrow { font-size: 11px; letter-spacing: 0.32em; color: var(--rose); text-transform: uppercase; margin-bottom: 14px; text-align: center; font-weight: 600; }
   .quiz-title { font-family: var(--serif); font-size: clamp(38px, 5vw, 60px); line-height: 1; text-align: center; margin-bottom: 18px; }
-  .quiz-title em { font-family: var(--italic); font-style: italic; color: var(--rose); font-weight: 500; }
+  .quiz-title span.accent { color: var(--rose); }
   .quiz-lead { font-size: 16px; color: var(--text-muted); text-align: center; line-height: 1.7; max-width: 56ch; margin: 0 auto 40px; }
   .quiz-start { display: block; margin: 0 auto; padding: 16px 36px; background: var(--ink); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; border: 1px solid var(--ink); transition: all 0.2s; }
   .quiz-start:hover { background: var(--rose); border-color: var(--rose); }
