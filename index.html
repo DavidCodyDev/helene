@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helene — Clothing, Jewelry, Makeup for the considered wardrobe</title>
+<meta name="description" content="Helene — a small considered house. Shapewear, jewelry, and makeup, edited by category. Quizzes that pick three pieces. Bundles that save 30%.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF5EE;
+    --bg-soft: #F4E1E6;
+    --bg-deep: #ECCBD4;
+    --paper: #FFFFFF;
+    --rose: #C2667D;
+    --rose-dark: #9F4F65;
+    --sage: #8C9888;
+    --ink: #1F1B17;
+    --text: #1F1B17;
+    --text-muted: #5C544D;
+    --text-faint: #9F9892;
+    --line: #E5D7CC;
+    --line-soft: #EFE4DA;
+    --ok: #2F6B5C;
+    --err: #B8493B;
+    --serif: 'Italiana', serif;
+    --italic: 'Cormorant Garamond', serif;
+    --sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.55;
+    font-weight: 400;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  ::selection { background: var(--rose); color: #fff; }
+
+  /* ─── Help bar ─── */
+  .help-bar {
+    background: var(--paper);
+    color: var(--text);
+    padding: 10px 20px;
+    font-size: 12px;
+    text-align: center;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex; justify-content: center; align-items: center;
+    gap: 18px; flex-wrap: wrap;
+  }
+  .help-bar-label {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: var(--rose);
+    font-weight: 600;
+  }
+  .help-bar a { color: var(--rose); font-weight: 600; border-bottom: 1.5px solid currentColor; padding-bottom: 1px; transition: opacity 0.2s; }
+  .help-bar a:hover { opacity: 0.7; }
+  .help-bar .dot { color: var(--text-faint); }
+  @media (max-width: 640px) {
+    .help-bar { gap: 10px; font-size: 11px; padding: 8px 14px; }
+    .help-bar .dot { display: none; }
+  }
+
+  /* ─── Announce strip ─── */
+  .announce {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 8px 20px;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
+  .announce .sep { color: var(--rose); margin: 0 14px; }
+  @media (max-width: 760px) {
+    .announce { font-size: 11px; padding: 7px 12px; }
+    .announce .sep { margin: 0 10px; }
+  }
+
+  /* ─── Header ─── */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(251, 245, 238, 0.94);
+    backdrop-filter: saturate(160%) blur(10px);
+    -webkit-backdrop-filter: saturate(160%) blur(10px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .header-inner {
+    max-width: 1440px; margin: 0 auto;
+    padding: 16px clamp(20px, 4vw, 56px);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-align: center;
+    color: var(--ink);
+  }
+  .logo .dot { color: var(--rose); }
+  .nav-main {
+    display: flex; gap: clamp(18px, 2.4vw, 32px);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .nav-main a { transition: color 0.2s; padding: 4px 0; }
+  .nav-main a:hover { color: var(--rose); }
+  .header-actions {
+    display: flex; justify-content: flex-end; gap: 18px;
+    align-items: center;
+  }
+  .icon-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+  .icon-btn:hover { color: var(--rose); }
+  .icon-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 1.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cart-count {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 22px; height: 22px; padding: 0 7px;
+    background: var(--rose);
+    color: #fff;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    transition: transform 0.3s;
+  }
+  .cart-count.empty { background: var(--ink); }
+  .cart-count.bump { transform: scale(1.25); }
+  .menu-toggle { display: none; width: 32px; height: 32px; padding: 6px; }
+  .menu-toggle svg { width: 100%; height: 100%; stroke: currentColor; stroke-width: 1.4; fill: none; }
+  @media (max-width: 960px) {
+    .nav-main { display: none; }
+    .menu-toggle { display: inline-flex; }
+    .header-inner { grid-template-columns: auto 1fr auto; padding: 14px 18px; }
+    .logo { font-size: 24px; }
+    .icon-btn span:not(.cart-count) { display: none; }
+  }
+  /* Mobile drawer */
+  .mobile-nav {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: min(320px, 86vw);
+    background: var(--bg);
+    z-index: 200;
+    transform: translateX(-105%);
+    transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
+    padding: 24px;
+    overflow-y: auto;
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+  .mobile-nav-close { font-size: 28px; line-height: 1; }
+  .mobile-nav ul { list-style: none; }
+  .mobile-nav li { border-bottom: 1px solid var(--line-soft); }
+  .mobile-nav li a { display: block; padding: 16px 0; font-size: 16px; font-weight: 500; letter-spacing: 0.02em; }
+
+  /* ─── Hero ─── */
+  .hero {
+    position: relative;
+    background: var(--bg);
+    overflow: hidden;
+    padding: clamp(48px, 6vw, 88px) clamp(20px, 4vw, 56px) clamp(64px, 8vw, 120px);
+  }
+  .hero-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    gap: clamp(40px, 6vw, 88px);
+    align-items: center;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 600;
+    margin-bottom: 28px;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(48px, 7vw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    margin-bottom: 26px;
+  }
+  .hero-title em {
+    font-family: var(--italic);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--rose);
+    letter-spacing: -0.005em;
+  }
+  .hero-sub {
+    font-size: clamp(15px, 1.3vw, 18px);
+    max-width: 480px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+  .hero-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+    border: 1px solid currentColor;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-rose { background: var(--rose); color: #fff; border-color: var(--rose); }
+  .btn-rose:hover { background: var(--rose-dark); border-color: var(--rose-dark); }
+  .btn-ink { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn-ink:hover { background: var(--rose); border-color: var(--rose); }
+  .btn-outline { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-outline:hover { background: var(--ink); color: #fff; }
+
+  .hero-image {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: var(--bg-soft);
+    position: relative;
+  }
+  .hero-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  @media (max-width: 880px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+    .hero-image { aspect-ratio: 5/4; max-height: 420px; }
+  }
+
+  /* ─── Sections ─── */
+  .section { padding: clamp(64px, 8vw, 120px) clamp(20px, 4vw, 56px); }
+  .section-soft { background: var(--bg-soft); }
+  .section-paper { background: var(--paper); }
+  .section-ink { background: var(--ink); color: var(--bg); }
+  .container { max-width: 1280px; margin: 0 auto; }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: clamp(36px, 5vw, 56px);
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .sec-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .sec-title {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5.5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .sec-title em {
+    font-family: var(--italic);
+    font-style: italic;
+    color: var(--rose);
+    font-weight: 500;
+  }
+  .section-ink .sec-title { color: var(--bg); }
+  .sec-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    max-width: 52ch;
+    line-height: 1.6;
+  }
+  .section-ink .sec-sub { color: rgba(251,245,238,0.75); }
+
+  /* ─── Category teasers ─── */
+  .cat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(18px, 2.5vw, 32px);
+  }
+  @media (max-width: 880px) { .cat-row { grid-template-columns: 1fr; } }
+  .cat-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    display: block;
+    background: var(--bg-soft);
+  }
+  .cat-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(.2,.7,.2,1);
+  }
+  .cat-card:hover img { transform: scale(1.04); }
+  .cat-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(31, 27, 23, 0.55) 100%);
+  }
+  .cat-card-body {
+    position: absolute;
+    left: clamp(20px, 3vw, 32px); right: clamp(20px, 3vw, 32px);
+    bottom: clamp(20px, 3vw, 32px);
+    color: #fff;
+    z-index: 1;
+  }
+  .cat-card-eyebrow { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; opacity: 0.85; margin-bottom: 8px; }
+  .cat-card-title { font-family: var(--serif); font-size: clamp(34px, 3.4vw, 48px); line-height: 1; margin-bottom: 6px; }
+  .cat-card-link { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: gap 0.3s; }
+  .cat-card:hover .cat-card-link { gap: 14px; }
+
+  /* ─── Bundles ─── */
+  .group-label {
+    font-family: var(--serif);
+    font-size: clamp(20px, 1.8vw, 26px);
+    color: var(--ink);
+    margin: 0 0 22px;
+    padding: 18px 0 10px;
+    border-top: 1px solid var(--line);
+    letter-spacing: 0.01em;
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 14px;
+  }
+  .group-label .group-count { font-family: var(--sans); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-faint); font-weight: 600; }
+  .bundle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(18px, 2.5vw, 28px);
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+  @media (max-width: 880px) { .bundle-grid { grid-template-columns: 1fr; } }
+  .bundle-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .bundle-card:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 0 var(--rose); }
+  .bundle-imgs {
+    background: var(--bg-soft);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    aspect-ratio: 4/3;
+  }
+  .bundle-imgs > div { overflow: hidden; background: var(--bg-deep); }
+  .bundle-imgs > div:first-child { grid-row: 1 / -1; }
+  .bundle-imgs img { width: 100%; height: 100%; object-fit: cover; }
+  .bundle-body { padding: clamp(20px, 2.6vw, 28px); display: flex; flex-direction: column; flex: 1; }
+  .bundle-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .bundle-title {
+    font-family: var(--serif);
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .bundle-tagline {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .bundle-items {
+    list-style: none;
+    margin-bottom: 18px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .bundle-items li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 12px;
+    font-size: 13px;
+  }
+  .bundle-items .it-price { color: var(--text-muted); white-space: nowrap; }
+  .bundle-prices {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .bundle-was { font-size: 13px; color: var(--text-faint); text-decoration: line-through; }
+  .bundle-now { font-family: var(--serif); font-size: 28px; color: var(--ink); }
+  .bundle-save { color: var(--rose); font-weight: 600; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .bundle-badge {
+    position: absolute; top: 14px; right: 14px;
+    background: var(--rose);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    z-index: 2;
+  }
+  .bundle-card { position: relative; }
+
+  /* ─── Quiz cards ─── */
+  .quiz-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(18px, 2.5vw, 28px);
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+  @media (max-width: 880px) { .quiz-grid { grid-template-columns: 1fr; } }
+  .quiz-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: clamp(24px, 3vw, 36px);
+    display: flex; flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    min-height: 280px;
+  }
+  .quiz-card:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 0 var(--sage); }
+  .quiz-card-num {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .quiz-card-title {
+    font-family: var(--serif);
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .quiz-card-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 22px;
+    flex: 1;
+  }
+  .quiz-card-meta { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 18px; }
+  .quiz-card-link {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink);
+    border-bottom: 1.5px solid currentColor;
+    padding-bottom: 2px;
+    align-self: flex-start;
+    transition: gap 0.3s, color 0.2s, border-color 0.2s;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .quiz-card:hover .quiz-card-link { gap: 14px; color: var(--rose); border-color: var(--rose); }
+
+  /* ─── Brand statement ─── */
+  .statement-inner { max-width: 820px; margin: 0 auto; text-align: center; }
+  .statement-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.05;
+    margin-bottom: 28px;
+  }
+  .statement-title em {
+    font-family: var(--italic);
+    font-style: italic;
+    color: var(--rose);
+    font-weight: 500;
+  }
+  .statement-body {
+    font-size: clamp(15px, 1.2vw, 17px);
+    line-height: 1.75;
+    color: rgba(251,245,238,0.78);
+    max-width: 56ch;
+    margin: 0 auto 32px;
+  }
+
+  /* ─── Newsletter ─── */
+  .newsletter { background: var(--bg-soft); text-align: center; padding: clamp(64px, 8vw, 110px) clamp(20px, 4vw, 56px); }
+  .newsletter-eyebrow { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 14px; }
+  .newsletter h2 { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px); line-height: 1; margin-bottom: 14px; }
+  .newsletter p { color: var(--text-muted); margin-bottom: 28px; font-size: 15px; max-width: 50ch; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .newsletter-form { display: flex; max-width: 440px; margin: 0 auto; gap: 8px; }
+  .newsletter-form input { flex: 1; padding: 14px 16px; background: #fff; border: 1px solid var(--line); font: inherit; font-size: 14px; color: var(--text); }
+  .newsletter-form input:focus { outline: none; border-color: var(--rose); }
+  .newsletter-form button { padding: 14px 28px; background: var(--rose); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: background 0.2s; border: 1px solid var(--rose); }
+  .newsletter-form button:hover { background: var(--ink); border-color: var(--ink); }
+  .newsletter-msg { margin-top: 14px; font-size: 13px; min-height: 16px; color: var(--ok); }
+  @media (max-width: 540px) { .newsletter-form { flex-direction: column; } }
+
+  /* ─── Footer ─── */
+  .foot { background: var(--ink); color: rgba(251,245,238,0.7); padding: clamp(56px, 7vw, 96px) clamp(20px, 4vw, 56px) 32px; }
+  .foot-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .foot-logo { font-family: var(--serif); color: var(--bg); font-size: 36px; line-height: 1; margin-bottom: 16px; letter-spacing: 0.04em; }
+  .foot-logo .dot { color: var(--rose); }
+  .foot-tag { font-size: 14px; line-height: 1.7; max-width: 36ch; }
+  .foot h4 { color: var(--bg); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; margin-bottom: 18px; }
+  .foot ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .foot a { color: rgba(251,245,238,0.72); font-size: 14px; transition: color 0.2s; }
+  .foot a:hover { color: var(--rose); }
+  .foot-bottom { max-width: 1280px; margin: 28px auto 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; font-size: 12px; color: rgba(251,245,238,0.5); }
+  @media (max-width: 880px) { .foot-grid { grid-template-columns: 1fr 1fr; gap: 36px; } .foot-bottom { flex-direction: column; gap: 6px; } }
+
+  /* ─── Cart drawer ─── */
+  .scrim { position: fixed; inset: 0; background: rgba(31, 27, 23, 0.55); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 100; }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+  .drawer { position: fixed; right: 0; top: 0; bottom: 0; width: min(440px, 100vw); background: var(--bg); transform: translateX(105%); transition: transform 0.4s cubic-bezier(.2,.7,.2,1); z-index: 101; display: flex; flex-direction: column; }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head { padding: 22px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
+  .drawer-head h3 { font-family: var(--serif); font-size: 24px; line-height: 1; }
+  .drawer-close { font-size: 24px; line-height: 1; color: var(--text-muted); }
+  .drawer-close:hover { color: var(--rose); }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 4px 28px; }
+  .drawer-line { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); align-items: start; }
+  .drawer-thumb { width: 64px; height: 80px; overflow: hidden; background: var(--bg-soft); position: relative; }
+  .drawer-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .drawer-name { font-family: var(--serif); font-size: 17px; line-height: 1.15; margin-bottom: 4px; }
+  .drawer-sub { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .drawer-bundle-tag { display: inline-block; background: var(--rose); color: #fff; font-size: 9px; letter-spacing: 0.1em; padding: 2px 6px; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; }
+  .drawer-qty { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line); padding: 4px 10px; background: #fff; }
+  .drawer-qty button { font-size: 14px; line-height: 1; padding: 2px; color: var(--text-muted); }
+  .drawer-qty button:hover { color: var(--ink); }
+  .drawer-qty span { font-size: 13px; min-width: 16px; text-align: center; font-weight: 500; }
+  .drawer-line-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .drawer-price { font-size: 14px; font-weight: 500; }
+  .drawer-remove { font-size: 10px; letter-spacing: 0.08em; color: var(--text-faint); text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .drawer-remove:hover { color: var(--rose); }
+  .drawer-empty { padding: 56px 0; text-align: center; }
+  .drawer-empty p { font-family: var(--serif); font-size: 22px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.3; }
+  .drawer-foot { padding: 18px 28px 24px; border-top: 1px solid var(--line); background: var(--paper); }
+  .drawer-discounts { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; font-size: 13px; }
+  .drawer-discount-row { display: flex; justify-content: space-between; }
+  .drawer-discount-row span:first-child { color: var(--text-muted); }
+  .drawer-discount-row.save span:last-child { color: var(--rose); font-weight: 600; }
+  .drawer-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 12px; margin-bottom: 12px; border-top: 1px solid var(--line); }
+  .drawer-total-label { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); }
+  .drawer-total-amount { font-family: var(--serif); font-size: 28px; color: var(--rose); }
+  .drawer-ship { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; text-align: center; }
+  .drawer-ship strong { color: var(--rose); font-weight: 600; }
+  .drawer-cta { width: 100%; background: var(--ink); color: #fff; padding: 16px; font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; transition: background 0.2s; border: 1px solid var(--ink); }
+  .drawer-cta:hover { background: var(--rose); border-color: var(--rose); }
+</style>
+</head>
+<body>
+
+<!-- ─── HELP BAR ─── -->
+<div class="help-bar">
+  <span class="help-bar-label">HELP?</span>
+  <span>Call <a href="tel:+11231234455">123-123-4455</a></span>
+  <span class="dot">·</span>
+  <span><a href="mailto:help@website.com">help@website.com</a></span>
+</div>
+
+<!-- ─── ANNOUNCE ─── -->
+<div class="announce">
+  Free US shipping over $100 <span class="sep">·</span> 30-day returns <span class="sep">·</span> Save 30% on every bundle
+</div>
+
+<!-- ─── HEADER ─── -->
+<header class="header">
+  <div class="header-inner">
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <nav class="nav-main">
+      <a href="shop.html">Shop</a>
+      <a href="#bundles">Bundles</a>
+      <a href="#quizzes">Quizzes</a>
+      <a href="#story">Story</a>
+    </nav>
+    <a href="#" class="logo">Helene<span class="dot">.</span></a>
+    <div class="header-actions">
+      <a href="shop.html" class="icon-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span>Search</span>
+      </a>
+      <button class="icon-btn" id="cartOpen" aria-label="Bag">
+        <svg viewBox="0 0 24 24"><path d="M6 7h12l-1.5 12.5a2 2 0 0 1-2 1.75H9.5a2 2 0 0 1-2-1.75L6 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+        <span>Bag</span>
+        <span class="cart-count empty" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ─── MOBILE NAV ─── -->
+<aside class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-head">
+    <span class="logo" style="font-size:26px;">Helene<span class="dot">.</span></span>
+    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close">×</button>
+  </div>
+  <ul>
+    <li><a href="shop.html">Shop All</a></li>
+    <li><a href="shop.html?cat=Clothing">Clothing</a></li>
+    <li><a href="shop.html?cat=Jewelry">Jewelry</a></li>
+    <li><a href="shop.html?cat=Makeup">Makeup</a></li>
+    <li><a href="#bundles">Bundles · 30% off</a></li>
+    <li><a href="#quizzes">Take a Quiz</a></li>
+    <li><a href="#story">Story</a></li>
+  </ul>
+</aside>
+
+<main>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">A considered house · Three categories</div>
+      <h1 class="hero-title">Clothing. <em>Jewelry.</em><br>Makeup. <em>Edited.</em></h1>
+      <p class="hero-sub">Shop the catalog by category, or let the quiz pick three pieces for you. Bundles save 30% on every trio. Free US shipping over $100.</p>
+      <div class="hero-cta-row">
+        <a href="shop.html" class="btn btn-ink">Shop the Catalog</a>
+        <a href="#quizzes" class="btn btn-outline">Take a Quiz</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="" id="heroImg" alt="" loading="eager">
+    </div>
+  </div>
+</section>
+
+<!-- ─── CATEGORY TEASERS ─── -->
+<section class="section section-paper">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="sec-eyebrow">Shop by Category</div>
+        <h2 class="sec-title">Three <em>houses</em>, one address.</h2>
+      </div>
+    </div>
+    <div class="cat-row">
+      <a class="cat-card" href="shop.html?cat=Clothing">
+        <img src="" id="catImg-Clothing" alt="Clothing" loading="lazy">
+        <div class="cat-card-body">
+          <div class="cat-card-eyebrow">33 pieces</div>
+          <div class="cat-card-title">Clothing</div>
+          <span class="cat-card-link">Shop Clothing <span>→</span></span>
+        </div>
+      </a>
+      <a class="cat-card" href="shop.html?cat=Jewelry">
+        <img src="" id="catImg-Jewelry" alt="Jewelry" loading="lazy">
+        <div class="cat-card-body">
+          <div class="cat-card-eyebrow">64 pieces</div>
+          <div class="cat-card-title">Jewelry</div>
+          <span class="cat-card-link">Shop Jewelry <span>→</span></span>
+        </div>
+      </a>
+      <a class="cat-card" href="shop.html?cat=Makeup">
+        <img src="" id="catImg-Makeup" alt="Makeup" loading="lazy">
+        <div class="cat-card-body">
+          <div class="cat-card-eyebrow">128 pieces</div>
+          <div class="cat-card-title">Makeup</div>
+          <span class="cat-card-link">Shop Makeup <span>→</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BUNDLES ─── -->
+<section class="section section-soft" id="bundles">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="sec-eyebrow">Save 30% — auto-applied</div>
+        <h2 class="sec-title">Nine <em>bundles</em>.<br>Three pieces each.</h2>
+      </div>
+      <p class="sec-sub">Each bundle drops the trio into your bag at 30% off. Use the pieces alone or together — they were chosen to work both ways.</p>
+    </div>
+    <div id="bundlesContainer"></div>
+  </div>
+</section>
+
+<!-- ─── QUIZZES ─── -->
+<section class="section section-paper" id="quizzes">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="sec-eyebrow">Match in 90 seconds</div>
+        <h2 class="sec-title">Nine <em>quizzes</em>.<br>Three pieces each.</h2>
+      </div>
+      <p class="sec-sub">Tell us your week — we line up the three pieces our team would put in your bag first. No fluff, no fortune teller, just the match.</p>
+    </div>
+    <div id="quizzesContainer"></div>
+  </div>
+</section>
+
+<!-- ─── STATEMENT ─── -->
+<section class="section section-ink" id="story">
+  <div class="statement-inner">
+    <div class="sec-eyebrow" style="text-align:center;">The House</div>
+    <h2 class="statement-title">A <em>small</em> house, three categories,<br>and a quiet rule:<br><em>buy fewer, choose better.</em></h2>
+    <p class="statement-body">Helene was built for the people who'd rather wear the same well-cut bodysuit every Monday than chase a trend. Shapewear that actually works. Jewelry you forget you're wearing. Makeup that lets your skin breathe. Three rooms, one door.</p>
+    <a href="shop.html" class="btn btn-rose">Shop the Catalog</a>
+  </div>
+</section>
+
+<!-- ─── NEWSLETTER ─── -->
+<section class="newsletter">
+  <div class="newsletter-eyebrow">10% off your first order</div>
+  <h2>Stay on the list.</h2>
+  <p>New drops, restock alerts, and a single-use welcome code in your inbox.</p>
+  <form class="newsletter-form" id="newsletterForm" novalidate>
+    <input type="email" id="newsletterEmail" placeholder="you@example.com" required autocomplete="email">
+    <button type="submit">Subscribe</button>
+  </form>
+  <div class="newsletter-msg" id="newsletterMsg"></div>
+</section>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo">Helene<span class="dot">.</span></div>
+      <p class="foot-tag">A small considered house. Shapewear, jewelry, and makeup edited by category. Shipping from California.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="shop.html">All Products</a></li>
+        <li><a href="shop.html?cat=Clothing">Clothing</a></li>
+        <li><a href="shop.html?cat=Jewelry">Jewelry</a></li>
+        <li><a href="shop.html?cat=Makeup">Makeup</a></li>
+        <li><a href="#bundles">Bundles · 30% off</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Help</h4>
+      <ul>
+        <li><a href="shipping.html">Shipping</a></li>
+        <li><a href="returns.html">Returns</a></li>
+        <li><a href="tel:+11231234455">123-123-4455</a></li>
+        <li><a href="mailto:help@website.com">help@website.com</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li style="margin-top: 10px; color: rgba(251,245,238,0.55); line-height: 1.6;">Nuzan Promotions and Branding<br>19612 Pine Valley Ave<br>Porter Ranch, CA 91326</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Helene · Nuzan Promotions and Branding</span>
+    <span>19612 Pine Valley Ave, Porter Ranch, CA 91326</span>
+  </div>
+</footer>
+
+<!-- ─── CART DRAWER ─── -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Your Bag</h3>
+    <button class="drawer-close" id="drawerClose" aria-label="Close bag">×</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot" style="display:none;">
+    <div class="drawer-discounts" id="drawerDiscounts"></div>
+    <div class="drawer-total">
+      <span class="drawer-total-label">Total</span>
+      <span class="drawer-total-amount" id="drawerTotal">$0.00</span>
+    </div>
+    <p class="drawer-ship" id="drawerShip"></p>
+    <button class="drawer-cta" id="drawerCheckout">Checkout →</button>
+  </div>
+</aside>
+
+<script src="data.js"></script>
+<script>
+  const { CATALOG, BUNDLES, QUIZZES } = window.HELENE;
+  const fmt = (n) => '$' + n.toFixed(2);
+
+  /* ─── Hero + category images ─── */
+  document.getElementById('heroImg').src = CATALOG['c016'].image;  // yoga jumpsuit lifestyle-ish
+  document.getElementById('catImg-Clothing').src = CATALOG['c011'].image;  // lace push-up bodysuit
+  document.getElementById('catImg-Jewelry').src  = CATALOG['j056'].image;  // multi-layer sunflower necklace
+  document.getElementById('catImg-Makeup').src   = CATALOG['m046'].image;  // ultra eyeshadow palette
+
+  /* ─── Bundles render (grouped by section) ─── */
+  const bundlesEl = document.getElementById('bundlesContainer');
+  ['Clothing','Jewelry','Makeup'].forEach(sec => {
+    const inSec = BUNDLES.filter(b => b.section === sec);
+    const header = document.createElement('div');
+    header.className = 'group-label';
+    header.innerHTML = `<span>${sec}</span><span class="group-count">${inSec.length} bundles · 30% off</span>`;
+    bundlesEl.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'bundle-grid';
+    inSec.forEach(b => {
+      const sub = b.skus.reduce((a, s) => a + CATALOG[s].price, 0);
+      const total = sub * (1 - b.discountPct);
+      const save = sub - total;
+      const card = document.createElement('div');
+      card.className = 'bundle-card';
+      card.innerHTML = `
+        <div class="bundle-badge">30% off</div>
+        <div class="bundle-imgs">
+          <div><img src="${CATALOG[b.skus[0]].image}" alt=""></div>
+          <div><img src="${CATALOG[b.skus[1]].image}" alt=""></div>
+          <div><img src="${CATALOG[b.skus[2]].image}" alt=""></div>
+        </div>
+        <div class="bundle-body">
+          <div class="bundle-eyebrow">${sec}</div>
+          <h3 class="bundle-title">${b.title}</h3>
+          <p class="bundle-tagline">${b.tagline}</p>
+          <ul class="bundle-items">
+            ${b.skus.map(s => `<li><span>${CATALOG[s].name}</span><span class="it-price">${fmt(CATALOG[s].price)}</span></li>`).join('')}
+          </ul>
+          <div class="bundle-prices">
+            <span class="bundle-was">${fmt(sub)}</span>
+            <span class="bundle-now">${fmt(total)}</span>
+            <span class="bundle-save">save ${fmt(save)}</span>
+          </div>
+          <button class="btn btn-ink" type="button" data-bundle="${b.slug}">Add bundle to bag</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+    bundlesEl.appendChild(grid);
+  });
+
+  /* ─── Quizzes render ─── */
+  const quizzesEl = document.getElementById('quizzesContainer');
+  ['Clothing','Jewelry','Makeup'].forEach(sec => {
+    const inSec = QUIZZES.filter(q => q.section === sec);
+    const header = document.createElement('div');
+    header.className = 'group-label';
+    header.innerHTML = `<span>${sec}</span><span class="group-count">${inSec.length} quizzes · 8 questions each</span>`;
+    quizzesEl.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'quiz-grid';
+    inSec.forEach((q, i) => {
+      const card = document.createElement('a');
+      card.className = 'quiz-card';
+      card.href = `quiz.html?slug=${q.slug}`;
+      card.innerHTML = `
+        <div class="quiz-card-num">Quiz · ${sec}</div>
+        <h3 class="quiz-card-title">${q.title}</h3>
+        <p class="quiz-card-sub">${q.lead}</p>
+        <div class="quiz-card-meta">8 questions · ~90 sec</div>
+        <span class="quiz-card-link">Start <span>→</span></span>
+      `;
+      grid.appendChild(card);
+    });
+    quizzesEl.appendChild(grid);
+  });
+
+  /* ─── CART ─── */
+  let cart = JSON.parse(sessionStorage.getItem('helene_cart') || '[]');
+  function saveCart() { sessionStorage.setItem('helene_cart', JSON.stringify(cart)); }
+
+  function addToCart(sku, opts = {}) {
+    const p = CATALOG[sku];
+    if (!p) return;
+    const bundleId = opts.bundleId || null;
+    const existing = cart.find(l => l.sku === sku && (l.bundleId || null) === bundleId);
+    if (existing) existing.qty += 1;
+    else cart.push({ sku, name: p.name, section: p.section, price: p.price, qty: 1, bundleId, image: p.image });
+    saveCart();
+    renderCart();
+    bumpCount();
+    openDrawer();
+  }
+  function addBundleToCart(slug) {
+    const b = BUNDLES.find(x => x.slug === slug);
+    if (!b) return;
+    const bundleId = b.slug + '-' + Date.now().toString(36);
+    b.skus.forEach(sku => addToCart(sku, { bundleId }));
+  }
+  function bumpCount() {
+    const el = document.getElementById('cartCount');
+    el.classList.add('bump');
+    setTimeout(() => el.classList.remove('bump'), 300);
+  }
+
+  function calcTotals() {
+    let subtotal = 0;
+    cart.forEach(l => subtotal += l.price * l.qty);
+    const bundleGroups = {};
+    cart.forEach(l => {
+      if (!l.bundleId) return;
+      bundleGroups[l.bundleId] = bundleGroups[l.bundleId] || { lines: [] };
+      bundleGroups[l.bundleId].lines.push(l);
+    });
+    let bundleDiscount = 0;
+    const bundleSummaries = [];
+    Object.entries(bundleGroups).forEach(([id, g]) => {
+      const slug = id.split('-').slice(0, -1).join('-');
+      const def = BUNDLES.find(b => b.slug === slug);
+      if (!def) return;
+      const skusPresent = new Set(g.lines.map(l => l.sku));
+      if (def.skus.every(s => skusPresent.has(s))) {
+        const baseQty = Math.min(...def.skus.map(s => {
+          const ln = g.lines.find(x => x.sku === s);
+          return ln ? ln.qty : 0;
+        }));
+        if (baseQty > 0) {
+          const bundleSub = def.skus.reduce((a, s) => a + CATALOG[s].price, 0) * baseQty;
+          const disc = bundleSub * def.discountPct;
+          bundleDiscount += disc;
+          bundleSummaries.push({ title: def.title, qty: baseQty, discount: disc });
+        }
+      }
+    });
+    return { subtotal, bundleDiscount, bundleSummaries, total: subtotal - bundleDiscount };
+  }
+
+  function renderCart() {
+    const count = cart.reduce((a, l) => a + l.qty, 0);
+    const cnt = document.getElementById('cartCount');
+    cnt.textContent = count;
+    cnt.classList.toggle('empty', count === 0);
+    const body = document.getElementById('drawerBody');
+    const foot = document.getElementById('drawerFoot');
+    if (!cart.length) {
+      body.innerHTML = `<div class="drawer-empty"><p>Your bag is empty.</p><button class="btn btn-outline" type="button" onclick="closeDrawer()">Keep shopping</button></div>`;
+      foot.style.display = 'none';
+      return;
+    }
+    body.innerHTML = cart.map((l, i) => `
+      <div class="drawer-line">
+        <div class="drawer-thumb"><img src="${l.image}" alt="${l.name}" loading="lazy"></div>
+        <div>
+          ${l.bundleId ? `<div class="drawer-bundle-tag">★ Bundle</div>` : ''}
+          <div class="drawer-name">${l.name}</div>
+          <div class="drawer-sub">${l.section}</div>
+          <div class="drawer-qty">
+            <button type="button" data-act="dec" data-i="${i}" aria-label="Decrease">−</button>
+            <span>${l.qty}</span>
+            <button type="button" data-act="inc" data-i="${i}" aria-label="Increase">+</button>
+          </div>
+        </div>
+        <div class="drawer-line-right">
+          <div class="drawer-price">${fmt(l.price * l.qty)}</div>
+          <button type="button" class="drawer-remove" data-act="rm" data-i="${i}">Remove</button>
+        </div>
+      </div>
+    `).join('');
+    body.querySelectorAll('button[data-act]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = +btn.dataset.i;
+        if (btn.dataset.act === 'inc') cart[i].qty += 1;
+        if (btn.dataset.act === 'dec') cart[i].qty = Math.max(0, cart[i].qty - 1);
+        if (btn.dataset.act === 'rm') cart[i].qty = 0;
+        cart = cart.filter(l => l.qty > 0);
+        saveCart();
+        renderCart();
+      });
+    });
+    const t = calcTotals();
+    const discounts = document.getElementById('drawerDiscounts');
+    let rows = [`<div class="drawer-discount-row"><span>Subtotal</span><span>${fmt(t.subtotal)}</span></div>`];
+    t.bundleSummaries.forEach(b => rows.push(`<div class="drawer-discount-row save"><span>${b.title} · 30% off${b.qty > 1 ? ' × ' + b.qty : ''}</span><span>− ${fmt(b.discount)}</span></div>`));
+    discounts.innerHTML = rows.join('');
+    document.getElementById('drawerTotal').textContent = fmt(t.total);
+    const ship = document.getElementById('drawerShip');
+    if (t.total >= 100) ship.innerHTML = '<strong>Free US shipping</strong> applied.';
+    else ship.innerHTML = `Add <strong>${fmt(100 - t.total)}</strong> more for free US shipping.`;
+    foot.style.display = '';
+  }
+
+  const drawer = document.getElementById('drawer');
+  const scrim = document.getElementById('scrim');
+  function openDrawer() { drawer.classList.add('open'); scrim.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeDrawer() { drawer.classList.remove('open'); scrim.classList.remove('open'); document.body.style.overflow = ''; }
+  window.closeDrawer = closeDrawer;
+  document.getElementById('cartOpen').addEventListener('click', openDrawer);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', () => { closeDrawer(); closeMobileNav(); });
+  document.getElementById('drawerCheckout').addEventListener('click', () => window.location.href = 'checkout.html');
+
+  const mobileNav = document.getElementById('mobileNav');
+  function openMobileNav() { mobileNav.classList.add('open'); scrim.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMobileNav() { mobileNav.classList.remove('open'); if (!drawer.classList.contains('open')) { scrim.classList.remove('open'); document.body.style.overflow = ''; } }
+  document.getElementById('menuToggle').addEventListener('click', openMobileNav);
+  document.getElementById('mobileNavClose').addEventListener('click', closeMobileNav);
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrawer(); closeMobileNav(); } });
+
+  document.querySelectorAll('button[data-bundle]').forEach(btn => {
+    btn.addEventListener('click', () => addBundleToCart(btn.dataset.bundle));
+  });
+
+  document.getElementById('newsletterForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('newsletterEmail').value.trim();
+    const msg = document.getElementById('newsletterMsg');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      msg.style.color = 'var(--err)';
+      msg.textContent = 'Please enter a valid email.';
+      return;
+    }
+    msg.style.color = 'var(--ok)';
+    msg.textContent = 'You\'re on the list — code coming.';
+    document.getElementById('newsletterEmail').value = '';
+  });
+
+  renderCart();
+</script>
+</body>
+</html>
