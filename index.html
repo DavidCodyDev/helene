@@ -7,7 +7,7 @@
 <meta name="description" content="Helene — a small considered house. Shapewear, jewelry, and makeup, edited by category. Quizzes that pick three pieces. Bundles that save 30%.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #FBF5EE;
@@ -26,7 +26,6 @@
     --ok: #2F6B5C;
     --err: #B8493B;
     --serif: 'Italiana', serif;
-    --italic: 'Cormorant Garamond', serif;
     --sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -117,9 +116,41 @@
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    align-items: center;
   }
-  .nav-main a { transition: color 0.2s; padding: 4px 0; }
-  .nav-main a:hover { color: var(--rose); }
+  .nav-main > a, .nav-shop > a { transition: color 0.2s; padding: 4px 0; display: inline-flex; align-items: center; gap: 4px; }
+  .nav-main > a:hover, .nav-shop:hover > a { color: var(--rose); }
+  .nav-shop { position: relative; }
+  .nav-shop > a::after { content: '▾'; font-size: 9px; margin-left: 2px; opacity: 0.6; }
+  .nav-dropdown {
+    position: absolute;
+    top: 100%; left: -16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 10px 0;
+    min-width: 200px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 12px 28px -8px rgba(31,27,23,0.16);
+    z-index: 60;
+  }
+  .nav-shop:hover .nav-dropdown, .nav-shop:focus-within .nav-dropdown {
+    opacity: 1; pointer-events: auto; transform: translateY(0);
+  }
+  .nav-dropdown a {
+    display: block;
+    padding: 9px 22px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text);
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-dropdown a:hover { background: var(--bg-soft); color: var(--rose); }
+  .nav-dropdown a.divider-top { border-top: 1px solid var(--line-soft); margin-top: 4px; padding-top: 14px; }
   .header-actions {
     display: flex; justify-content: flex-end; gap: 18px;
     align-items: center;
@@ -204,13 +235,7 @@
     color: var(--ink);
     margin-bottom: 26px;
   }
-  .hero-title em {
-    font-family: var(--italic);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--rose);
-    letter-spacing: -0.005em;
-  }
+  .hero-title span.accent { color: var(--rose); }
   .hero-sub {
     font-size: clamp(15px, 1.3vw, 18px);
     max-width: 480px;
@@ -281,12 +306,7 @@
     letter-spacing: -0.005em;
     color: var(--ink);
   }
-  .sec-title em {
-    font-family: var(--italic);
-    font-style: italic;
-    color: var(--rose);
-    font-weight: 500;
-  }
+  .sec-title span.accent { color: var(--rose); }
   .section-ink .sec-title { color: var(--bg); }
   .sec-sub {
     font-size: 15px;
@@ -343,10 +363,7 @@
     padding: 18px 0 10px;
     border-top: 1px solid var(--line);
     letter-spacing: 0.01em;
-    display: flex; justify-content: space-between; align-items: baseline;
-    gap: 14px;
   }
-  .group-label .group-count { font-family: var(--sans); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-faint); font-weight: 600; }
   .bundle-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -491,12 +508,7 @@
     line-height: 1.05;
     margin-bottom: 28px;
   }
-  .statement-title em {
-    font-family: var(--italic);
-    font-style: italic;
-    color: var(--rose);
-    font-weight: 500;
-  }
+  .statement-title span.accent { color: var(--rose); }
   .statement-body {
     font-size: clamp(15px, 1.2vw, 17px);
     line-height: 1.75;
@@ -591,10 +603,18 @@
   <div class="header-inner">
     <button class="menu-toggle" id="menuToggle" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     <nav class="nav-main">
-      <a href="shop.html">Shop</a>
+      <div class="nav-shop">
+        <a href="shop.html">Shop</a>
+        <div class="nav-dropdown">
+          <a href="shop.html">All Products</a>
+          <a href="shop.html?cat=Clothing" class="divider-top">Clothing</a>
+          <a href="shop.html?cat=Jewelry">Jewelry</a>
+          <a href="shop.html?cat=Makeup">Makeup</a>
+        </div>
+      </div>
       <a href="#bundles">Bundles</a>
       <a href="#quizzes">Quizzes</a>
-      <a href="#story">Story</a>
+      <a href="#story">About</a>
     </nav>
     <a href="#" class="logo">Helene<span class="dot">.</span></a>
     <div class="header-actions">
@@ -634,12 +654,12 @@
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-eyebrow">A considered house · Three categories</div>
-      <h1 class="hero-title">Clothing. <em>Jewelry.</em><br>Makeup. <em>Edited.</em></h1>
-      <p class="hero-sub">Shop the catalog by category, or let the quiz pick three pieces for you. Bundles save 30% on every trio. Free US shipping over $100.</p>
+      <div class="hero-eyebrow">Spring 2026 collection</div>
+      <h1 class="hero-title">Refined essentials,<br>made to be worn often.</h1>
+      <p class="hero-sub">Shapewear, jewelry, and beauty designed for daily wear. Free US shipping over $100. 30-day returns.</p>
       <div class="hero-cta-row">
-        <a href="shop.html" class="btn btn-ink">Shop the Catalog</a>
-        <a href="#quizzes" class="btn btn-outline">Take a Quiz</a>
+        <a href="shop.html" class="btn btn-ink">Shop Now</a>
+        <a href="#bundles" class="btn btn-outline">Save 30% on Bundles</a>
       </div>
     </div>
     <div class="hero-image">
@@ -653,33 +673,29 @@
   <div class="container">
     <div class="section-head">
       <div>
-        <div class="sec-eyebrow">Shop by Category</div>
-        <h2 class="sec-title">Three <em>houses</em>, one address.</h2>
+        <h2 class="sec-title">Shop by category</h2>
       </div>
     </div>
     <div class="cat-row">
       <a class="cat-card" href="shop.html?cat=Clothing">
         <img src="" id="catImg-Clothing" alt="Clothing" loading="lazy">
         <div class="cat-card-body">
-          <div class="cat-card-eyebrow">33 pieces</div>
           <div class="cat-card-title">Clothing</div>
-          <span class="cat-card-link">Shop Clothing <span>→</span></span>
+          <span class="cat-card-link">Shop now <span>→</span></span>
         </div>
       </a>
       <a class="cat-card" href="shop.html?cat=Jewelry">
         <img src="" id="catImg-Jewelry" alt="Jewelry" loading="lazy">
         <div class="cat-card-body">
-          <div class="cat-card-eyebrow">64 pieces</div>
           <div class="cat-card-title">Jewelry</div>
-          <span class="cat-card-link">Shop Jewelry <span>→</span></span>
+          <span class="cat-card-link">Shop now <span>→</span></span>
         </div>
       </a>
       <a class="cat-card" href="shop.html?cat=Makeup">
         <img src="" id="catImg-Makeup" alt="Makeup" loading="lazy">
         <div class="cat-card-body">
-          <div class="cat-card-eyebrow">128 pieces</div>
           <div class="cat-card-title">Makeup</div>
-          <span class="cat-card-link">Shop Makeup <span>→</span></span>
+          <span class="cat-card-link">Shop now <span>→</span></span>
         </div>
       </a>
     </div>
@@ -691,10 +707,10 @@
   <div class="container">
     <div class="section-head">
       <div>
-        <div class="sec-eyebrow">Save 30% — auto-applied</div>
-        <h2 class="sec-title">Nine <em>bundles</em>.<br>Three pieces each.</h2>
+        <div class="sec-eyebrow">Save 30%</div>
+        <h2 class="sec-title">Bundles</h2>
       </div>
-      <p class="sec-sub">Each bundle drops the trio into your bag at 30% off. Use the pieces alone or together — they were chosen to work both ways.</p>
+      <p class="sec-sub">Curated trios — add the bundle and 30% comes off automatically. Pieces work alone or together.</p>
     </div>
     <div id="bundlesContainer"></div>
   </div>
@@ -706,9 +722,9 @@
     <div class="section-head">
       <div>
         <div class="sec-eyebrow">Match in 90 seconds</div>
-        <h2 class="sec-title">Nine <em>quizzes</em>.<br>Three pieces each.</h2>
+        <h2 class="sec-title">Find your match</h2>
       </div>
-      <p class="sec-sub">Tell us your week — we line up the three pieces our team would put in your bag first. No fluff, no fortune teller, just the match.</p>
+      <p class="sec-sub">Answer a few questions and we'll match you to three pieces from our catalog.</p>
     </div>
     <div id="quizzesContainer"></div>
   </div>
@@ -717,10 +733,9 @@
 <!-- ─── STATEMENT ─── -->
 <section class="section section-ink" id="story">
   <div class="statement-inner">
-    <div class="sec-eyebrow" style="text-align:center;">The House</div>
-    <h2 class="statement-title">A <em>small</em> house, three categories,<br>and a quiet rule:<br><em>buy fewer, choose better.</em></h2>
-    <p class="statement-body">Helene was built for the people who'd rather wear the same well-cut bodysuit every Monday than chase a trend. Shapewear that actually works. Jewelry you forget you're wearing. Makeup that lets your skin breathe. Three rooms, one door.</p>
-    <a href="shop.html" class="btn btn-rose">Shop the Catalog</a>
+    <h2 class="statement-title">About Helene</h2>
+    <p class="statement-body">Helene is a small house designed for women who'd rather wear the same well-cut bodysuit every Monday than chase a trend. Shapewear that actually works, jewelry you forget you're wearing, and makeup that lets your skin breathe.</p>
+    <a href="shop.html" class="btn btn-rose">Shop Now</a>
   </div>
 </section>
 
@@ -816,7 +831,7 @@
     const inSec = BUNDLES.filter(b => b.section === sec);
     const header = document.createElement('div');
     header.className = 'group-label';
-    header.innerHTML = `<span>${sec}</span><span class="group-count">${inSec.length} bundles · 30% off</span>`;
+    header.textContent = sec;
     bundlesEl.appendChild(header);
 
     const grid = document.createElement('div');
@@ -860,7 +875,7 @@
     const inSec = QUIZZES.filter(q => q.section === sec);
     const header = document.createElement('div');
     header.className = 'group-label';
-    header.innerHTML = `<span>${sec}</span><span class="group-count">${inSec.length} quizzes · 8 questions each</span>`;
+    header.textContent = sec;
     quizzesEl.appendChild(header);
 
     const grid = document.createElement('div');
@@ -870,10 +885,8 @@
       card.className = 'quiz-card';
       card.href = `quiz.html?slug=${q.slug}`;
       card.innerHTML = `
-        <div class="quiz-card-num">Quiz · ${sec}</div>
         <h3 class="quiz-card-title">${q.title}</h3>
         <p class="quiz-card-sub">${q.lead}</p>
-        <div class="quiz-card-meta">8 questions · ~90 sec</div>
         <span class="quiz-card-link">Start <span>→</span></span>
       `;
       grid.appendChild(card);
