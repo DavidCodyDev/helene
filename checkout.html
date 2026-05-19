@@ -7,14 +7,14 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #FBF5EE; --bg-soft: #F4E1E6; --bg-deep: #ECCBD4; --paper: #FFFFFF;
     --rose: #C2667D; --rose-dark: #9F4F65; --sage: #8C9888;
     --ink: #1F1B17; --text: #1F1B17; --text-muted: #5C544D; --text-faint: #9F9892;
     --line: #E5D7CC; --line-soft: #EFE4DA; --ok: #2F6B5C; --err: #B8493B;
-    --serif: 'Italiana', serif; --italic: 'Cormorant Garamond', serif;
+    --serif: 'Italiana', serif;
     --sans: 'Inter', system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,7 +44,7 @@
   .head-row { margin-bottom: clamp(28px, 4vw, 40px); }
   .head-eyebrow { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 10px; }
   .head-title { font-family: var(--serif); font-size: clamp(36px, 5vw, 60px); line-height: 1; }
-  .head-title em { font-family: var(--italic); font-style: italic; color: var(--rose); font-weight: 500; }
+  .head-title span.accent { color: var(--rose); }
 
   .grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 4vw, 56px); align-items: start; }
   @media (max-width: 880px) { .grid { grid-template-columns: 1fr; gap: 24px; } }
@@ -124,7 +124,7 @@
   .center-section { text-align: center; padding: clamp(56px, 8vw, 100px) clamp(20px, 4vw, 56px); max-width: 640px; margin: 0 auto; }
   .center-eyebrow { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 14px; }
   .center-title { font-family: var(--serif); font-size: clamp(36px, 5vw, 56px); line-height: 1; margin-bottom: 14px; }
-  .center-title em { font-family: var(--italic); font-style: italic; color: var(--rose); }
+  .center-title span.accent { color: var(--rose); }
   .center-sub { color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
   .center-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 32px; background: var(--ink); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; border: 1px solid var(--ink); transition: all 0.2s; }
   .center-cta:hover { background: var(--rose); border-color: var(--rose); }
@@ -161,7 +161,7 @@
 
 <section class="center-section" id="emptyState" hidden>
   <div class="center-eyebrow">★ Empty bag</div>
-  <h1 class="center-title">Your bag <em>is empty</em>.</h1>
+  <h1 class="center-title">Your bag is empty.</h1>
   <p class="center-sub">Have a look at the catalog — 225 pieces across clothing, jewelry, and makeup.</p>
   <a href="shop.html" class="center-cta">Shop the Catalog</a>
 </section>
@@ -169,7 +169,7 @@
 <section class="wrap" id="checkoutWrap">
   <div class="head-row">
     <div class="head-eyebrow">★ Checkout</div>
-    <h1 class="head-title">Almost <em>yours</em>.</h1>
+    <h1 class="head-title">Checkout</h1>
   </div>
 
   <div class="grid">
@@ -236,7 +236,7 @@
 
 <section class="center-section" id="successScreen" hidden>
   <div class="success-tag">★ Order placed</div>
-  <h1 class="center-title">Thank you, <em><span id="successName">friend</span></em>.</h1>
+  <h1 class="center-title">Thank you, <span class="accent" id="successName">friend</span>.</h1>
   <p class="center-sub">Order <span class="success-order" id="successOrder">#HELENE-000000</span> is in. Confirmation sent to <strong id="successEmail">you</strong>.</p>
   <div class="success-recap" id="successRecap"></div>
   <a href="shop.html" class="center-cta">Keep Shopping</a>
