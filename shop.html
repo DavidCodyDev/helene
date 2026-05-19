@@ -7,14 +7,14 @@
 <meta name="description" content="Shop the Helene catalog. 225 pieces across clothing, jewelry, and makeup.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #FBF5EE; --bg-soft: #F4E1E6; --bg-deep: #ECCBD4; --paper: #FFFFFF;
     --rose: #C2667D; --rose-dark: #9F4F65; --sage: #8C9888;
     --ink: #1F1B17; --text: #1F1B17; --text-muted: #5C544D; --text-faint: #9F9892;
     --line: #E5D7CC; --line-soft: #EFE4DA; --ok: #2F6B5C; --err: #B8493B;
-    --serif: 'Italiana', serif; --italic: 'Cormorant Garamond', serif;
+    --serif: 'Italiana', serif;
     --sans: 'Inter', system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,9 +41,16 @@
   .header-inner { max-width: 1440px; margin: 0 auto; padding: 16px clamp(20px, 4vw, 56px); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
   .logo { font-family: var(--serif); font-size: clamp(28px, 3.4vw, 40px); line-height: 1; letter-spacing: 0.04em; text-align: center; color: var(--ink); }
   .logo .dot { color: var(--rose); }
-  .nav-main { display: flex; gap: clamp(18px, 2.4vw, 32px); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
-  .nav-main a { transition: color 0.2s; padding: 4px 0; }
-  .nav-main a:hover, .nav-main a.active { color: var(--rose); }
+  .nav-main { display: flex; gap: clamp(18px, 2.4vw, 32px); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; align-items: center; }
+  .nav-main > a, .nav-shop > a { transition: color 0.2s; padding: 4px 0; display: inline-flex; align-items: center; gap: 4px; }
+  .nav-main > a:hover, .nav-main > a.active, .nav-shop:hover > a, .nav-shop > a.active { color: var(--rose); }
+  .nav-shop { position: relative; }
+  .nav-shop > a::after { content: '▾'; font-size: 9px; margin-left: 2px; opacity: 0.6; }
+  .nav-dropdown { position: absolute; top: 100%; left: -16px; background: var(--paper); border: 1px solid var(--line); padding: 10px 0; min-width: 200px; opacity: 0; pointer-events: none; transform: translateY(-4px); transition: opacity 0.2s, transform 0.2s; box-shadow: 0 12px 28px -8px rgba(31,27,23,0.16); z-index: 60; }
+  .nav-shop:hover .nav-dropdown, .nav-shop:focus-within .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .nav-dropdown a { display: block; padding: 9px 22px; font-size: 12.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); transition: background 0.15s, color 0.15s; }
+  .nav-dropdown a:hover { background: var(--bg-soft); color: var(--rose); }
+  .nav-dropdown a.divider-top { border-top: 1px solid var(--line-soft); margin-top: 4px; padding-top: 14px; }
   .header-actions { display: flex; justify-content: flex-end; gap: 18px; align-items: center; }
   .icon-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px; transition: color 0.2s; }
   .icon-btn:hover { color: var(--rose); }
@@ -71,8 +78,6 @@
   .shop-head-inner { max-width: 1440px; margin: 0 auto; }
   .shop-eyebrow { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 12px; }
   .shop-title { font-family: var(--serif); font-size: clamp(40px, 5vw, 64px); line-height: 1; }
-  .shop-title em { font-family: var(--italic); font-style: italic; color: var(--rose); font-weight: 500; }
-  .shop-sub { font-size: 15px; color: var(--text-muted); margin-top: 12px; }
   .shop-controls {
     background: var(--paper);
     border-bottom: 1px solid var(--line);
@@ -80,38 +85,26 @@
   }
   .shop-controls-inner {
     max-width: 1440px; margin: 0 auto;
-    padding: 18px clamp(20px, 4vw, 56px);
+    padding: 16px clamp(20px, 4vw, 56px);
     display: flex; align-items: center; justify-content: space-between;
     gap: 18px; flex-wrap: wrap;
   }
-  .cat-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
-  .cat-tab {
-    padding: 9px 18px;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+  .ctrl-group { display: flex; align-items: center; gap: 12px; }
+  .ctrl-group label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
+  .ctrl-group select {
+    padding: 9px 36px 9px 14px;
     border: 1px solid var(--line);
-    background: var(--bg);
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .cat-tab:hover { border-color: var(--ink); color: var(--ink); }
-  .cat-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .cat-tab .count { color: currentColor; opacity: 0.55; margin-left: 8px; font-size: 11px; }
-  .sort-wrap { display: flex; align-items: center; gap: 12px; }
-  .sort-wrap label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
-  .sort-wrap select {
-    padding: 9px 14px;
-    border: 1px solid var(--line);
-    background: var(--bg);
+    background: var(--bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%231F1B17' d='M0 0l5 6 5-6z'/></svg>") no-repeat right 12px center;
+    appearance: none;
+    -webkit-appearance: none;
     font: inherit;
     font-size: 13px;
     color: var(--ink);
     cursor: pointer;
+    min-width: 180px;
   }
-  .sort-wrap select:focus { outline: none; border-color: var(--rose); }
+  .ctrl-group select:focus { outline: none; border-color: var(--rose); }
+  .result-count { font-size: 12px; letter-spacing: 0.04em; color: var(--text-muted); }
 
   .shop-body { padding: clamp(32px, 4vw, 56px) clamp(20px, 4vw, 56px) clamp(56px, 7vw, 96px); }
   .shop-body-inner { max-width: 1440px; margin: 0 auto; }
@@ -250,10 +243,18 @@
   <div class="header-inner">
     <button class="menu-toggle" id="menuToggle" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     <nav class="nav-main">
-      <a href="shop.html" class="active">Shop</a>
+      <div class="nav-shop">
+        <a href="shop.html" class="active">Shop</a>
+        <div class="nav-dropdown">
+          <a href="shop.html">All Products</a>
+          <a href="shop.html?cat=Clothing" class="divider-top">Clothing</a>
+          <a href="shop.html?cat=Jewelry">Jewelry</a>
+          <a href="shop.html?cat=Makeup">Makeup</a>
+        </div>
+      </div>
       <a href="index.html#bundles">Bundles</a>
       <a href="index.html#quizzes">Quizzes</a>
-      <a href="index.html#story">Story</a>
+      <a href="index.html#story">About</a>
     </nav>
     <a href="index.html" class="logo">Helene<span class="dot">.</span></a>
     <div class="header-actions">
@@ -285,22 +286,23 @@
 
 <section class="shop-head">
   <div class="shop-head-inner">
-    <div class="shop-eyebrow">The Catalog</div>
-    <h1 class="shop-title">Shop the <em>house</em>.</h1>
-    <p class="shop-sub" id="shopSub">All 225 pieces across three categories.</p>
+    <h1 class="shop-title" id="shopTitle">Shop</h1>
   </div>
 </section>
 
 <section class="shop-controls">
   <div class="shop-controls-inner">
-    <div class="cat-tabs" id="catTabs">
-      <button class="cat-tab active" data-cat="All">All <span class="count" id="count-All">225</span></button>
-      <button class="cat-tab" data-cat="Clothing">Clothing <span class="count" id="count-Clothing">33</span></button>
-      <button class="cat-tab" data-cat="Jewelry">Jewelry <span class="count" id="count-Jewelry">64</span></button>
-      <button class="cat-tab" data-cat="Makeup">Makeup <span class="count" id="count-Makeup">128</span></button>
+    <div class="ctrl-group">
+      <label for="catSel">Category</label>
+      <select id="catSel">
+        <option value="All">All Products</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Jewelry">Jewelry</option>
+        <option value="Makeup">Makeup</option>
+      </select>
     </div>
-    <div class="sort-wrap">
-      <label for="sortSel">Sort</label>
+    <div class="ctrl-group">
+      <label for="sortSel">Sort by</label>
       <select id="sortSel">
         <option value="featured">Featured</option>
         <option value="price-asc">Price: low to high</option>
@@ -406,11 +408,7 @@
   const params = new URLSearchParams(location.search);
   let activeCat = params.get('cat') || 'All';
   let activeSort = 'featured';
-
-  function setCatTabs() {
-    document.querySelectorAll('.cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === activeCat));
-  }
-  setCatTabs();
+  document.getElementById('catSel').value = activeCat;
 
   function render() {
     let list = activeCat === 'All' ? allProducts : allProducts.filter(p => p.section === activeCat);
@@ -420,6 +418,7 @@
 
     const grid = document.getElementById('productGrid');
     const empty = document.getElementById('emptyState');
+    document.getElementById('shopTitle').textContent = activeCat === 'All' ? 'Shop' : activeCat;
     if (!list.length) {
       grid.innerHTML = '';
       empty.hidden = false;
@@ -439,22 +438,14 @@
       </div>
     `).join('');
     grid.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => openModal(c.dataset.sku)));
-
-    // update header sub
-    const catLabel = activeCat === 'All' ? 'All 225 pieces across three categories.' : `${list.length} ${activeCat.toLowerCase()} pieces.`;
-    document.getElementById('shopSub').textContent = catLabel;
   }
 
-  document.querySelectorAll('.cat-tab').forEach(t => {
-    t.addEventListener('click', () => {
-      activeCat = t.dataset.cat;
-      setCatTabs();
-      render();
-      // update URL (no reload)
-      const u = new URL(location.href);
-      if (activeCat === 'All') u.searchParams.delete('cat'); else u.searchParams.set('cat', activeCat);
-      history.replaceState(null, '', u.toString());
-    });
+  document.getElementById('catSel').addEventListener('change', e => {
+    activeCat = e.target.value;
+    render();
+    const u = new URL(location.href);
+    if (activeCat === 'All') u.searchParams.delete('cat'); else u.searchParams.set('cat', activeCat);
+    history.replaceState(null, '', u.toString());
   });
   document.getElementById('sortSel').addEventListener('change', e => { activeSort = e.target.value; render(); });
 
