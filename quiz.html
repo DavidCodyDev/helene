@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — Helene</title>
+<meta name="description" content="Take a 90-second Helene quiz — we'll match you to three pieces.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF5EE; --bg-soft: #F4E1E6; --bg-deep: #ECCBD4; --paper: #FFFFFF;
+    --rose: #C2667D; --rose-dark: #9F4F65; --sage: #8C9888;
+    --ink: #1F1B17; --text: #1F1B17; --text-muted: #5C544D; --text-faint: #9F9892;
+    --line: #E5D7CC; --line-soft: #EFE4DA; --ok: #2F6B5C; --err: #B8493B;
+    --serif: 'Italiana', serif; --italic: 'Cormorant Garamond', serif;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); color: var(--text); background: var(--bg); line-height: 1.55; font-weight: 400; font-size: 15px; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  ::selection { background: var(--rose); color: #fff; }
+  [hidden] { display: none !important; }
+
+  /* Minimal header */
+  .topbar { background: var(--bg); border-bottom: 1px solid var(--line-soft); padding: 16px clamp(20px, 4vw, 56px); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .back { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); transition: color 0.2s, gap 0.3s; }
+  .back:hover { color: var(--rose); gap: 16px; }
+  .logo { font-family: var(--serif); font-size: 32px; line-height: 1; text-align: center; letter-spacing: 0.04em; }
+  .logo .dot { color: var(--rose); }
+  .progress-bar { height: 3px; background: var(--line-soft); overflow: hidden; }
+  .progress-bar > div { height: 100%; background: var(--rose); width: 0; transition: width 0.45s cubic-bezier(.2,.7,.2,1); }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 40px); }
+  .quiz-eyebrow { font-size: 11px; letter-spacing: 0.32em; color: var(--rose); text-transform: uppercase; margin-bottom: 14px; text-align: center; font-weight: 600; }
+  .quiz-title { font-family: var(--serif); font-size: clamp(38px, 5vw, 60px); line-height: 1; text-align: center; margin-bottom: 18px; }
+  .quiz-title em { font-family: var(--italic); font-style: italic; color: var(--rose); font-weight: 500; }
+  .quiz-lead { font-size: 16px; color: var(--text-muted); text-align: center; line-height: 1.7; max-width: 56ch; margin: 0 auto 40px; }
+  .quiz-start { display: block; margin: 0 auto; padding: 16px 36px; background: var(--ink); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; border: 1px solid var(--ink); transition: all 0.2s; }
+  .quiz-start:hover { background: var(--rose); border-color: var(--rose); }
+
+  .quiz-step { background: var(--paper); border: 1px solid var(--line); padding: clamp(28px, 4vw, 48px); }
+  .step-meta { font-size: 11px; letter-spacing: 0.24em; color: var(--rose); text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
+  .quiz-q { font-family: var(--serif); font-size: clamp(26px, 3.4vw, 38px); line-height: 1.1; margin-bottom: 28px; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 540px) { .quiz-options { grid-template-columns: 1fr; } }
+  .quiz-option { text-align: left; background: var(--bg); border: 1px solid var(--line); padding: 16px 20px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s; font-size: 14.5px; font-weight: 500; }
+  .quiz-option:hover { border-color: var(--rose); background: var(--bg-soft); transform: translateX(3px); }
+  .quiz-option-emoji { font-size: 18px; flex-shrink: 0; color: var(--rose); width: 22px; text-align: center; }
+  .quiz-back { margin-top: 24px; font-size: 11px; color: var(--text-faint); letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+  .quiz-back:hover { color: var(--rose); }
+
+  /* Result */
+  .result { background: var(--paper); border: 1px solid var(--line); padding: clamp(28px, 4vw, 48px); }
+  .result-tag { display: inline-block; background: var(--rose); color: #fff; font-size: 11px; letter-spacing: 0.24em; padding: 6px 14px; text-transform: uppercase; margin-bottom: 18px; font-weight: 600; }
+  .result-title { font-family: var(--serif); font-size: clamp(34px, 4vw, 52px); line-height: 1.05; margin-bottom: 14px; }
+  .result-why { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 28px; max-width: 56ch; }
+  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  @media (max-width: 600px) { .result-grid { grid-template-columns: 1fr; } }
+  .result-card { border: 1px solid var(--line); overflow: hidden; background: var(--bg); display: block; }
+  .result-card-img { aspect-ratio: 3/4; overflow: hidden; background: var(--bg-soft); }
+  .result-card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .result-card-body { padding: 14px; }
+  .result-card-cat { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 5px; font-weight: 600; }
+  .result-card-name { font-family: var(--serif); font-size: 17px; line-height: 1.15; margin-bottom: 8px; }
+  .result-card-price { font-family: var(--serif); font-size: 18px; color: var(--rose); }
+  .result-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 28px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; transition: all 0.2s; border: 1px solid currentColor; cursor: pointer; white-space: nowrap; }
+  .btn-rose { background: var(--rose); color: #fff; border-color: var(--rose); }
+  .btn-rose:hover { background: var(--rose-dark); border-color: var(--rose-dark); }
+  .btn-ink { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn-ink:hover { background: var(--rose); border-color: var(--rose); }
+  .btn-outline { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-outline:hover { background: var(--ink); color: #fff; }
+
+  .cart-pill { position: fixed; bottom: 20px; right: 20px; background: var(--ink); color: #fff; padding: 14px 22px; border-radius: 999px; display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; z-index: 50; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: transform 0.2s; }
+  .cart-pill:hover { transform: scale(1.04); background: var(--rose); }
+  .cart-pill .num { background: var(--rose); color: #fff; border-radius: 999px; min-width: 22px; height: 22px; padding: 0 7px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+
+  /* Footer */
+  .mini-foot { background: var(--ink); color: rgba(251,246,238,0.6); padding: 28px clamp(20px, 4vw, 56px); font-size: 12px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .mini-foot a { color: rgba(251,246,238,0.85); }
+  .mini-foot a:hover { color: var(--rose); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="back"><span>←</span> <span>Back to Helene</span></a>
+  <a href="index.html" class="logo">Helene<span class="dot">.</span></a>
+  <span></span>
+</header>
+<div class="progress-bar"><div id="progressBar"></div></div>
+
+<main class="wrap">
+
+  <section id="quizIntro">
+    <div class="quiz-eyebrow" id="introEyebrow"></div>
+    <h1 class="quiz-title" id="introTitle"></h1>
+    <p class="quiz-lead" id="introLead"></p>
+    <button class="quiz-start" id="startBtn">Start Quiz →</button>
+  </section>
+
+  <section id="quizStep" hidden>
+    <div class="quiz-step">
+      <div class="step-meta" id="stepMeta"></div>
+      <h2 class="quiz-q" id="stepQ"></h2>
+      <div class="quiz-options" id="stepOptions"></div>
+      <button class="quiz-back" id="stepBack" hidden>← back</button>
+    </div>
+  </section>
+
+  <section id="quizResult" hidden>
+    <div class="result">
+      <span class="result-tag">Your Match</span>
+      <h2 class="result-title" id="resultTitle"></h2>
+      <p class="result-why" id="resultWhy"></p>
+      <div class="result-grid" id="resultGrid"></div>
+      <div class="result-actions">
+        <button class="btn btn-ink" id="addAllBtn">Add All 3 to Bag</button>
+        <a href="index.html#quizzes" class="btn btn-outline">Try another quiz</a>
+        <button class="btn btn-outline" id="retakeBtn">Retake this one</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="quizMissing" hidden>
+    <h1 class="quiz-title">Quiz not found.</h1>
+    <p class="quiz-lead">Pick one from the homepage.</p>
+    <a href="index.html#quizzes" class="quiz-start" style="text-decoration:none;display:inline-block;">Back to quizzes</a>
+  </section>
+
+</main>
+
+<a class="cart-pill" id="cartPill">Bag <span class="num" id="cartNum">0</span></a>
+
+<footer class="mini-foot">
+  <span>© 2026 Helene · Nuzan Promotions and Branding · 19612 Pine Valley Ave, Porter Ranch, CA 91326</span>
+  <span><a href="shop.html">Shop</a> · <a href="index.html#bundles">Bundles</a> · <a href="index.html#story">Story</a></span>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  const { CATALOG, QUIZZES } = window.HELENE;
+  const fmt = (n) => '$' + n.toFixed(2);
+
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug') || '';
+  const quiz = QUIZZES.find(q => q.slug === slug);
+
+  if (!quiz) {
+    document.getElementById('quizIntro').hidden = true;
+    document.getElementById('quizMissing').hidden = false;
+  } else {
+    document.getElementById('introEyebrow').textContent = quiz.eyebrow;
+    document.getElementById('introTitle').textContent = quiz.title;
+    document.getElementById('introLead').textContent = quiz.lead;
+  }
+
+  let step = -1;
+  const answers = [];
+  const total = quiz ? quiz.questions.length : 0;
+
+  function setProgress() {
+    const pct = step < 0 ? 0 : step >= total ? 100 : ((step) / total) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+  }
+
+  function showStep() {
+    document.getElementById('quizIntro').hidden = true;
+    document.getElementById('quizResult').hidden = true;
+    document.getElementById('quizStep').hidden = false;
+    const q = quiz.questions[step];
+    document.getElementById('stepMeta').textContent = `Question ${step + 1} of ${total}`;
+    document.getElementById('stepQ').textContent = q.question;
+    const optsEl = document.getElementById('stepOptions');
+    optsEl.innerHTML = q.options.map(o => `
+      <button class="quiz-option" type="button" data-val="${o.value}">
+        <span class="quiz-option-emoji">${o.emoji || ''}</span>
+        <span>${o.label}</span>
+      </button>
+    `).join('');
+    optsEl.querySelectorAll('.quiz-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        answers[step] = btn.dataset.val;
+        step++;
+        if (step >= total) showResult();
+        else { showStep(); setProgress(); }
+      });
+    });
+    document.getElementById('stepBack').hidden = step === 0;
+    setProgress();
+  }
+
+  function showResult() {
+    document.getElementById('quizStep').hidden = true;
+    document.getElementById('quizResult').hidden = false;
+    setProgress();
+    const candidates = [
+      answers.slice(0, 2).join('-'),
+      answers[0] + '-default',
+      'default',
+    ];
+    let outcome = null;
+    for (const k of candidates) {
+      if (quiz.outcomes[k]) { outcome = quiz.outcomes[k]; break; }
+    }
+    if (!outcome) outcome = quiz.outcomes.default;
+    document.getElementById('resultTitle').textContent = outcome.headline;
+    document.getElementById('resultWhy').textContent = outcome.why;
+    const grid = document.getElementById('resultGrid');
+    grid.innerHTML = outcome.skus.map(sku => {
+      const p = CATALOG[sku];
+      if (!p) return '';
+      return `
+        <a class="result-card" href="shop.html">
+          <div class="result-card-img"><img src="${p.image}" alt="${p.name}"></div>
+          <div class="result-card-body">
+            <div class="result-card-cat">${p.section}</div>
+            <div class="result-card-name">${p.name}</div>
+            <div class="result-card-price">${fmt(p.price)}</div>
+          </div>
+        </a>
+      `;
+    }).join('');
+    document.getElementById('addAllBtn').onclick = () => {
+      outcome.skus.forEach(sku => {
+        const p = CATALOG[sku];
+        if (!p) return;
+        const cart = JSON.parse(sessionStorage.getItem('helene_cart') || '[]');
+        const existing = cart.find(l => l.sku === sku && !l.bundleId);
+        if (existing) existing.qty += 1;
+        else cart.push({ sku, name: p.name, section: p.section, price: p.price, qty: 1, bundleId: null, image: p.image });
+        sessionStorage.setItem('helene_cart', JSON.stringify(cart));
+      });
+      renderCartPill();
+      window.location.href = 'index.html#bundles';
+    };
+  }
+
+  document.getElementById('startBtn').addEventListener('click', () => { if (!quiz) return; step = 0; showStep(); });
+  document.getElementById('stepBack').addEventListener('click', () => { if (step > 0) { step--; showStep(); } });
+  document.getElementById('retakeBtn').addEventListener('click', () => {
+    step = -1; answers.length = 0;
+    document.getElementById('quizResult').hidden = true;
+    document.getElementById('quizIntro').hidden = false;
+    setProgress();
+  });
+
+  function renderCartPill() {
+    const cart = JSON.parse(sessionStorage.getItem('helene_cart') || '[]');
+    document.getElementById('cartNum').textContent = cart.reduce((a, l) => a + l.qty, 0);
+  }
+  document.getElementById('cartPill').addEventListener('click', () => window.location.href = 'index.html');
+  renderCartPill();
+  setProgress();
+</script>
+</body>
+</html>
