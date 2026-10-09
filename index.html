@@ -611,7 +611,7 @@
           <a href="shop.html?cat=Clothing" class="divider-top">Clothing</a>
           <a href="shop.html?cat=Jewelry">Jewelry</a>
           <a href="shop.html?cat=Makeup">Makeup</a>
-          <a href="shop.html?cat=Guides">Guides</a>
+          <a href="shop.html?cat=Ebooks">Ebooks</a>
         </div>
       </div>
       <a href="#bundles">Bundles</a>
@@ -644,7 +644,7 @@
     <li><a href="shop.html?cat=Clothing">Clothing</a></li>
     <li><a href="shop.html?cat=Jewelry">Jewelry</a></li>
     <li><a href="shop.html?cat=Makeup">Makeup</a></li>
-    <li><a href="shop.html?cat=Guides">Guides</a></li>
+    <li><a href="shop.html?cat=Ebooks">Ebooks</a></li>
     <li><a href="#bundles">Bundles · 30% off</a></li>
     <li><a href="#quizzes">Take a Quiz</a></li>
     <li><a href="#story">Story</a></li>
@@ -701,10 +701,10 @@
           <span class="cat-card-link">Shop now <span>→</span></span>
         </div>
       </a>
-      <a class="cat-card" href="shop.html?cat=Guides">
-        <img src="" id="catImg-Guides" alt="Guides" loading="lazy">
+      <a class="cat-card" href="shop.html?cat=Ebooks">
+        <img src="" id="catImg-Ebooks" alt="Ebooks" loading="lazy">
         <div class="cat-card-body">
-          <div class="cat-card-title">Guides</div>
+          <div class="cat-card-title">Ebooks</div>
           <span class="cat-card-link">Shop now <span>→</span></span>
         </div>
       </a>
@@ -777,7 +777,7 @@
         <li><a href="shop.html?cat=Clothing">Clothing</a></li>
         <li><a href="shop.html?cat=Jewelry">Jewelry</a></li>
         <li><a href="shop.html?cat=Makeup">Makeup</a></li>
-        <li><a href="shop.html?cat=Guides">Guides</a></li>
+        <li><a href="shop.html?cat=Ebooks">Ebooks</a></li>
         <li><a href="#bundles">Bundles · 30% off</a></li>
       </ul>
     </div>
@@ -837,11 +837,11 @@
   document.getElementById('catImg-Clothing').src = CATALOG['c024'].image;  // clean lifestyle bodysuit
   document.getElementById('catImg-Jewelry').src  = CATALOG['j056'].image;  // multi-layer sunflower necklace
   document.getElementById('catImg-Makeup').src   = CATALOG['m046'].image;  // ultra eyeshadow palette
-  document.getElementById('catImg-Guides').src   = CATALOG['eb001'].image;  // 2027 Edit cover
+  document.getElementById('catImg-Ebooks').src   = CATALOG['eb001'].image;  // 2027 Edit cover
 
   /* ─── Bundles render (grouped by section) ─── */
   const bundlesEl = document.getElementById('bundlesContainer');
-  ['Clothing','Jewelry','Makeup','Guides'].forEach(sec => {
+  ['Clothing','Jewelry','Makeup','Ebooks'].forEach(sec => {
     const inSec = BUNDLES.filter(b => b.section === sec);
     if (!inSec.length) return;
     const header = document.createElement('div');

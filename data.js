@@ -227,9 +227,9 @@ window.HELENE.CATALOG = {
   "m126": {"sku":"m126","section":"Makeup","name":"Eye Revitalizing Gel","price":59.99,"image":"images/m126.jpg","source":"https://transhoply.com/product?id=2195"},
   "m127": {"sku":"m127","section":"Makeup","name":"Instant Lift Eye Gel for Puffiness, Bags & Dark Circles","price":29.99,"image":"images/m127.webp","source":"https://transhoply.com/product?id=2196"},
   "m129": {"sku":"m129","section":"Makeup","name":"Melanin Correcting Facial Serum","price":39.99,"image":"images/m129.jpg","source":"https://interstorez.com/product?id=2180"},
-  "eb001": {"sku":"eb001","section":"Guides","name":"The 2027 Edit","price":18.67,"image":"images/eb-main.jpg"},
-  "eb002": {"sku":"eb002","section":"Guides","name":"The Foundations Fit Guide","price":9.79,"image":"images/eb-fit.jpg"},
-  "eb003": {"sku":"eb003","section":"Guides","name":"The Jewelry Layering Guide","price":9.79,"image":"images/eb-jewelry.jpg"},
+  "eb001": {"sku":"eb001","section":"Ebooks","name":"The 2027 Edit","price":18.67,"image":"images/eb-main.jpg"},
+  "eb002": {"sku":"eb002","section":"Ebooks","name":"The Foundations Fit Guide","price":9.79,"image":"images/eb-fit.jpg"},
+  "eb003": {"sku":"eb003","section":"Ebooks","name":"The Jewelry Layering Guide","price":9.79,"image":"images/eb-jewelry.jpg"},
 };
 
 window.HELENE.BUNDLES = [
@@ -242,7 +242,7 @@ window.HELENE.BUNDLES = [
   {slug:"lip-trio",title:"The Lip Trio",section:"Makeup",tagline:"Velvet matte lipstick, lip love balm, and glossy shine. Three finishes for three moods.",code:"LIP30",discountPct:0.30,skus:["m003","m002","m006"],coverSku:"m003"},
   {slug:"eye-essentials",title:"Eye Essentials",section:"Makeup",tagline:"Volumising mascara, precision liquid liner, and the Ultra eyeshadow palette. Build any eye look from one trio.",code:"EYE30",discountPct:0.30,skus:["m025","m014","m046"],coverSku:"m025"},
   {slug:"glow-kit",title:"The Glow Kit",section:"Makeup",tagline:"Radiant glow foundation, luminous cream blush, and the Dreamlight highlighter balm. A natural lit-from-within face in three steps.",code:"GLOW30",discountPct:0.30,skus:["m008","m044","m016"],coverSku:"m008"},
-  {slug:"helene-guides",title:"The Helene Guides Trio",section:"Guides",tagline:"The 2027 Edit, the Fit Guide, and the Jewelry Layering Guide — three digital fashion guides at a set trio price.",code:"GUIDES",price:34.87,skus:["eb001","eb002","eb003"],coverSku:"eb001"},
+  {slug:"helene-guides",title:"The Helene Ebooks Trio",section:"Ebooks",tagline:"The 2027 Edit, the Fit Guide, and the Jewelry Layering Guide — three digital fashion ebooks at a set trio price.",code:"GUIDES",price:34.87,skus:["eb001","eb002","eb003"],coverSku:"eb001"},
 ];
 
 window.HELENE.QUIZZES = [
